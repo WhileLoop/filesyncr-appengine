@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="Blobstore Showcase" basedir="." default="less">
+<project name="FileSyncr" basedir="." default="less">
     
     <!-- Classpaths used by Javac and GWT compile -->
 	<path id="project.classpath">    
@@ -45,7 +45,7 @@
 	</target>
 	
    <!-- Invoke the GWT compiler to create the Javascript -->
-   <target name="gwt-compile" depends="compile">
+   <target name="gwt-compile">
         <java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
             <classpath>
                 <!-- src dir is added to ensure the module.xml file(s) are on the classpath -->
