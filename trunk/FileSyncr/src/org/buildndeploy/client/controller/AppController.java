@@ -28,7 +28,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 public class AppController implements EntryPoint {
 	
-	static Logger log = Logger.getLogger(AppController.class.getName());
+	private static Logger log = Logger.getLogger(AppController.class.getName());
 
 	static { Resources.INSTANCE.css().ensureInjected(); }
 	
@@ -59,6 +59,7 @@ public class AppController implements EntryPoint {
 			public void onUncaughtException(Throwable unhandled) {
 				Throwable unwrapped = unwrap(unhandled);
 				unwrapped.printStackTrace();
+				// TODO log on server
 			}
 		});
 		
@@ -128,7 +129,7 @@ public class AppController implements EntryPoint {
 
 		@Override
 		public void onFailure(Throwable caught) {
-			// Ignore
+			// Ignore // TODO log on server?
 		}
 
 		@Override

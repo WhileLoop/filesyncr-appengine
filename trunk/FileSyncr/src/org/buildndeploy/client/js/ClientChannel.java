@@ -2,10 +2,13 @@ package org.buildndeploy.client.js;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.buildndeploy.shared.model.MessageType;
 
 public class ClientChannel {
+	
+	private static Logger log = Logger.getLogger(ClientChannel.class.getName());
 	
 	public ClientChannel(String channelKey) {
 		System.out.println("trying to join " + channelKey);
@@ -14,6 +17,7 @@ public class ClientChannel {
 			
 			@Override
 			public void onOpen() {
+				log.info("opening channel");
 				System.out.println("open");
 			}
 		});
@@ -22,6 +26,7 @@ public class ClientChannel {
 			
 			@Override
 			public void onClose() {
+				log.severe("closing channel");
 				System.out.println("close");
 			}
 		});
@@ -30,6 +35,8 @@ public class ClientChannel {
 			
 			@Override
 			public void onError(int i, String s) {
+				//error 401 Token+timed+out.
+				log.severe("error " + i + " " + s);
 				System.out.println("error " + i + " " + s); // TODO handle timeout
 			}
 		});
@@ -122,6 +129,7 @@ public class ClientChannel {
 	}
 
 	private void onMessage(String message) {
+		log.info("got message " + message);
 		if (message.contains("\r\n")) {
 			message = message.replace("\r\n", "");
 			System.out.println("trimmed new line");

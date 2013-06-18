@@ -7,11 +7,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.buildndeploy.server.model.ChannelState;
+import org.buildndeploy.server.model.ChannelConnection;
 import org.buildndeploy.shared.model.MessageType;
 
 import com.google.appengine.api.channel.ChannelMessage;
@@ -20,65 +19,51 @@ import com.google.appengine.api.channel.ChannelService;
 import com.google.appengine.api.channel.ChannelServiceFactory;
 
 public class ChannelUtil {
+	// 24 * 60
+	private static final int CHANNEL_TOKEN_TIMEOUT_MINUTES =  24 * 60 - 1; // One day is max
+	private static final int CHANNEL_TOKEN_TIMEOUT_MILIS = CHANNEL_TOKEN_TIMEOUT_MINUTES * 60 * 1000;
+	private static final long FIVE_MINUTES = 60 * 5 * 1000;
 	
-	public static final int CHANNEL_TOKEN_TIMEOUT_MINUTES = 24 * 60; // One day is max
-	
+	private static SecureRandom rand = new SecureRandom();
 	private static Logger log = Logger.getLogger(FileCollectionUtil.class.getName());
 
 	// ========================================================================= //
 	//				CHANNEL MANAGMENT											 //
 	// ========================================================================= //
 	
-	private static SecureRandom rand = new SecureRandom();
-	
 	public static String proccesClientId(HttpServletRequest req, HttpServletResponse res, String username) {
-		// Try to find SEED cookie
-		Cookie[] cookies = req.getCookies(); // Returns null if empty
-		Cookie seedCookie = null;
-		if (cookies != null) {
-			for (int i = 0; i < cookies.length; i++) {
-				if (cookies[i].getName().equals("SEED")) {
-					seedCookie = cookies[i];
-					break;
-				}
-			}
+		long now = new Date().getTime();
+		// Check for available channel
+		ChannelConnection availableChannel = ObjectifyUtil.ofy().load()
+			.type(ChannelConnection.class)
+			.filter("active", false)
+			.filter("expires >", now + FIVE_MINUTES)
+			.first().get();
+		if (availableChannel != null) {
+			availableChannel.setUsername(username).save();
+			log.info("found available channel " + availableChannel.getChannelToken());
+			return availableChannel.getChannelToken();
+		} else {
+			// Generate new client id
+			String newClientId = new BigInteger(130, rand).toString(32);
+			ChannelService channelService = ChannelServiceFactory.getChannelService();
+			// Open new channel
+			String newChannelToken = channelService.createChannel(newClientId, CHANNEL_TOKEN_TIMEOUT_MINUTES);
+			// Save new entity
+			long expires = new Date().getTime() + CHANNEL_TOKEN_TIMEOUT_MILIS;
+			new ChannelConnection()
+				.setClientId(newClientId)
+				.setChannelToken(newChannelToken)
+				.setExpires(expires)
+				.setActive(false)
+				.setUsername(username)
+				.save();
+			log.info("created new channel " + newChannelToken);
+			log.info("from client id " + newClientId);
+			log.info("expires " + new Date(expires));
+			// Return token to client
+			return newChannelToken;
 		}
-		
-		if (seedCookie != null && !seedCookie.getValue().isEmpty()) {
-			// TODO check channel created date for expiration? Cookie should have expired.
-			long oldSeed = Long.parseLong(seedCookie.getValue());
-			ChannelState channelState = ObjectifyUtil.ofy().load().type(ChannelState.class).id(oldSeed).get();
-			if (channelState == null) {
-				log.severe("old seed query returned null!");
-			} else {
-				String oldChannelToken = channelState.getChannelToken();
-				channelState.setUsername(username).save();
-				return oldChannelToken;
-			}
-		}
-		// If no SEED cookie exists or no channel could be be found create, a new channel
-		// Generate seed and write back into request
-		long newSeed = rand.nextLong();
-		Cookie newSeedCookie = new Cookie("SEED", newSeed + "");
-		newSeedCookie.setPath("/");
-		newSeedCookie.setMaxAge(CHANNEL_TOKEN_TIMEOUT_MINUTES * 60);
-		res.addCookie(newSeedCookie);
-		String newClientId = new BigInteger(64, rand).toString(32);
-		// Generate token
-		ChannelService channelService = ChannelServiceFactory.getChannelService();
-		String newChannelToken = channelService.createChannel(newClientId, CHANNEL_TOKEN_TIMEOUT_MINUTES);
-		// Save new entity
-		long created = new Date().getTime();
-		new ChannelState()
-			.setSeed(newSeed)
-			.setClientId(newClientId)
-			.setChannelToken(newChannelToken)
-			.setCreated(created)
-			.setActive(false) // Don't assume that a client will join the channel immediately after requesting the channel token
-			.setUsername(username)
-			.save();
-		// Return token to client
-		return newChannelToken;
 	}
 	
 	public static String parsePresence(HttpServletRequest req) throws IOException {
@@ -95,9 +80,9 @@ public class ChannelUtil {
 	public static void pushMessage(String payload, MessageType type) {
 		ChannelService channelService = ChannelServiceFactory.getChannelService();
 		// Find all active channels
-		List<ChannelState> activeChannels = ObjectifyUtil.ofy().load().type(ChannelState.class).filter("active", true).list();
-		for (ChannelState channelState : activeChannels) {
-			String clientId = channelState.getClientId();
+		List<ChannelConnection> activeChannels = ObjectifyUtil.ofy().load().type(ChannelConnection.class).filter("active", true).list();
+		for (ChannelConnection channel : activeChannels) {
+			String clientId = channel.getClientId();
 			// Payloads are not logged
 			log.info("Sending message to " + clientId + " of type " + type);
 			ChannelMessage msg = createMessage(clientId, type, payload);

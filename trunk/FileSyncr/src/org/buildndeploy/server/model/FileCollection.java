@@ -32,7 +32,6 @@ public class FileCollection implements IsSerializable {
 	 * The order of the blob keys in this list determine the order that 
 	 * FileDetails are shown on the client.
 	 */
-//	List<Key<__BlobInfo__>> blobKeys = new LinkedList<Key<__BlobInfo__>>();
 	List<String> blobKeys = new LinkedList<String>();
 	
     /**
@@ -79,10 +78,7 @@ public class FileCollection implements IsSerializable {
 	
 	/**  @return - the underlying list of blob key strings.	 */
 	public Collection<__BlobInfo__> getBlobInfos() {
-//		List<__BlobInfo__> blobs = new LinkedList<__BlobInfo__>();
-		log.info("Before query");
 		return	ObjectifyUtil.ofy().load().type(__BlobInfo__.class).ids(blobKeys).values();
-//		return blobs;
 	}
 
 	/**

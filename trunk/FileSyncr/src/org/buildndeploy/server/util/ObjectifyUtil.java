@@ -1,6 +1,6 @@
 package org.buildndeploy.server.util;
 
-import org.buildndeploy.server.model.ChannelState;
+import org.buildndeploy.server.model.ChannelConnection;
 import org.buildndeploy.server.model.FileCollection;
 import org.buildndeploy.server.model.__BlobInfo__;
 
@@ -14,7 +14,7 @@ public class ObjectifyUtil {
 //        factory().register(_ah_SESSION.class);
         factory().register(FileCollection.class);
         factory().register(__BlobInfo__.class);
-        factory().register(ChannelState.class);
+        factory().register(ChannelConnection.class);
     }
 
     public static Objectify ofy() {

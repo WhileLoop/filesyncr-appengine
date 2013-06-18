@@ -66,7 +66,7 @@ public class MainPanel extends Composite {
 						helpButton.removeStyleName("shakes");
 					}
 					
-				}.schedule(700);
+				};
 			}
 		}, ClickEvent.getType());
 		
