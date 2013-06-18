@@ -1,0 +1,228 @@
+// ========================================================================= //
+//			GENERIC CLASSES												 	 //
+// ========================================================================= //
+
+.animation (@name; @duration; @count; @fill; @ease) {
+	-webkit-animation-name: @name;
+	-webkit-animation-duration: @duration;
+	-webkit-animation-timing-function: @ease;
+	-webkit-animation-iteration-count: @count;
+	-webkit-animation-fill-mode: @fill;
+	
+	-moz-animation-name: @name;
+	-moz-animation-duration: @duration;
+	-moz-animation-timing-function: @ease;
+	-moz-animation-iteration-count: @count;
+	-moz-animation-fill-mode: @fill;
+	
+	-ms-animation-name: @name;
+	-ms-animation-duration: @duration;
+	-ms-animation-timing-function: @ease;
+	-ms-animation-iteration-count: @count;
+	-ms-animation-fill-mode: @fill;
+	
+	-o-animation-name: @name;
+	-o-animation-duration: @duration;
+	-o-animation-timing-function: @ease;
+	-o-animation-iteration-count: @count;
+	-o-animation-fill-mode: @fill;
+	
+	animation-name: @name;
+	animation-duration: @duration;
+	animation-timing-function: @ease;
+	animation-iteration-count: @count;
+	animation-fill-mode: @fill;
+}
+
+// ========================================================================= //
+//			SHRINK WIDTH												 	 //
+// ========================================================================= //
+
+.shrinksWidth {
+	.animation(shrinkWidth; 0.7s; 1; forwards; linear);
+}
+
+@-webkit-keyframes shrinkWidth {.shrinkWidth;}
+   @-moz-keyframes shrinkWidth {.shrinkWidth;}
+    @-ms-keyframes shrinkWidth {.shrinkWidth;}
+     @-o-keyframes shrinkWidth {.shrinkWidth;}
+        @keyframes shrinkWidth {.shrinkWidth;}
+		
+.shrinkWidth () {
+	from {
+		width: 128px;
+	}
+	to {
+		width: 0px
+	};
+}
+
+// ========================================================================= //
+//			SHAKE													 	 	 //
+// ========================================================================= //	
+
+.shakes {
+	.animation(shake; 0.3s; 1; none; linear);
+	transform-origin:50% 50%;
+}
+
+@-webkit-keyframes shake {.shake;}
+   @-moz-keyframes shake {.shake;}
+    @-ms-keyframes shake {.shake;}
+     @-o-keyframes shake {.shake;}
+        @keyframes shake {.shake;}
+		
+.shake () {
+	0% { transform: translate(4px, 3px) rotate(0deg); }
+	30% { transform: translate(-3px, -4px) rotate(-3deg); }
+	40% { transform: translate(-5px, 0px) rotate(3deg); }
+	50% { transform: translate(0px, 4px) rotate(0deg); }
+	40% { transform: translate(3px, -3px) rotate(3deg); }
+	50% { transform: translate(-3px, 4px) rotate(-3deg); }
+	60% { transform: translate(-5px, 3px) rotate(0deg); }
+	70% { transform: translate(4px, 3px) rotate(-3deg); }
+	80% { transform: translate(-3px, -3px) rotate(3deg); }
+	90% { transform: translate(4px, 4px) rotate(0deg); }
+	300% { transform: translate(3px, -4px) rotate(-3deg); }
+}
+	
+// ========================================================================= //
+//			GROW OUTER												 	 	 //
+// ========================================================================= //	
+
+.grows.fadesIn {
+	.animation(growOuter; 0.7s; 1; forwards; linear);
+}
+
+@-webkit-keyframes growOuter {.growOuter;}
+   @-moz-keyframes growOuter {.growOuter;}
+    @-ms-keyframes growOuter {.growOuter;}
+     @-o-keyframes growOuter {.growOuter;}
+        @keyframes growOuter {.growOuter;}
+		
+.growOuter () {
+	from {
+		width: 5px;
+	}
+	to {
+		width: 128px;
+	}
+}
+
+// ========================================================================= //
+//			GROW INNER												 	 	 //
+// ========================================================================= //	
+
+.grows .innerPanel {
+	.animation(growInner; 0.7s; 1; forwards; linear);
+}
+
+@-webkit-keyframes growInner {.growInner;}
+   @-moz-keyframes growInner {.growInner;}
+    @-ms-keyframes growInner {.growInner;}
+     @-o-keyframes growInner {.growInner;}
+        @keyframes growInner {.growInner;}
+		
+.growInner () {
+	from {
+		height: 5px;
+		width: 5px;
+	}
+	to {
+	 height: 128px;
+  	 width: 128px;
+	}
+}
+
+// ========================================================================= //
+//			FADING IN												 	 	 //
+// ========================================================================= //	
+
+.fadesIn {
+	.animation(fadeIn, 1s, 1, forwards, linear);
+}
+
+@-webkit-keyframes fadeIn {.fadeIn;}
+   @-moz-keyframes fadeIn {.fadeIn;}
+    @-ms-keyframes fadeIn {.fadeIn;}
+     @-o-keyframes fadeIn {.fadeIn;}
+        @keyframes fadeIn {.fadeIn;}
+		
+.fadeIn () {
+	from {
+		opacity: 0.0;
+	}
+	to {
+		opacity: 1.0;
+	}
+}
+
+// ========================================================================= //
+//			FADING OUT												 	 	 //
+// ========================================================================= //	
+
+.fadesOut {
+	.animation(fadeOut, 1s, 1, forwards, linear);
+}
+
+@-webkit-keyframes fadeOut {.fadeOut;}
+   @-moz-keyframes fadeOut {.fadeOut;}
+    @-ms-keyframes fadeOut {.fadeOut;}
+     @-o-keyframes fadeOut {.fadeOut;}
+        @keyframes fadeOut {.fadeOut;}
+		
+.fadeOut () {
+	from {
+		opacity: 1.0;
+	}
+	to {
+		opacity: 0.0;
+	}
+}
+
+// ========================================================================= //
+//			ROTATING												 	 	 //
+// ========================================================================= //	
+
+.rotates {
+  .animation(rotate, 1s, infinite, forwards, linear);
+}
+
+@-webkit-keyframes rotate {.rotate;}
+   @-moz-keyframes rotate {.rotate;}
+    @-ms-keyframes rotate {.rotate;}
+     @-o-keyframes rotate {.rotate;}
+        @keyframes rotate {.rotate;}
+
+.rotate () {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+// ========================================================================= //
+//			MOVE RIGHT												 	 	 //
+// ========================================================================= //	
+
+.movesRight {
+	.animation(moveRight; 0.5s; 1; forwards; linear);
+}
+
+.movesRight .innerPanel{
+	.animation(moveRight; 0.5s; 1; forwards; linear);
+}
+
+
+@-webkit-keyframes moveRight {.moveRight;}
+   @-moz-keyframes moveRight {.moveRight;}
+    @-ms-keyframes moveRight {.moveRight;}
+     @-o-keyframes moveRight {.moveRight;}
+        @keyframes moveRight {.moveRight;}
+
+.moveRight () {
+	0% { width: 5px; }
+	100% { width: 128px; }
+}

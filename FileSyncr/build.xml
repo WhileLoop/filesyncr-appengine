@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<project name="Blobstore Showcase" basedir="." default="less">
+    
+    <!-- Classpaths used by Javac and GWT compile -->
+	<path id="project.classpath">    
+		<pathelement location="war/WEB-INF/classes"/>
+		<fileset dir="war/WEB-INF/lib" includes="**/*.jar"/>
+		<!-- Needed by GWT compile -->
+		<fileset dir="lib/gwt/">
+		    <include name="gwt-dev.jar"/>
+			<include name="gwt-user.jar"/>
+        </fileset>
+    </path>
+    
+	<target name="less"> 
+		<java jar="less/js.jar" fork="true" output="war/gen.css">
+			<arg path="less/less-rhino-1.3.3.js"/>
+			<arg path="less/less.css"/>
+		</java>
+	</target>
+	
+	<target name="clean"> 
+		<delete dir="war/WEB-INF/appengine-generated" />
+		<delete dir="war/WEB-INF/deploy" />
+		<delete dir="war/mainmodule" />
+		<delete dir="gwt-unitCache" />
+	</target>
+
+	<target name="devmode" description="Run development mode">
+		<java failonerror="true" fork="true" classname="com.google.gwt.dev.DevMode">
+			<classpath>
+				<pathelement location="src" />
+				<pathelement location="${gwt.sdk}/validation-api-1.0.0.GA.jar" />
+				<pathelement location="${gwt.sdk}/validation-api-1.0.0.GA-sources.jar" />
+			</classpath>
+			<jvmarg value="-Xmx1280M" />
+			<arg value="-startupUrl" />
+			<arg value="HL7Poll.html" />
+			<arg line="-war" />
+			<arg value="war" />
+			<!-- Additional arguments like -style PRETTY or -logLevel DEBUG -->
+			<arg line="${gwt.args}" />
+			<arg value="churro.HL7Poll" />
+		</java>
+	</target>
+	
+   <!-- Invoke the GWT compiler to create the Javascript -->
+   <target name="gwt-compile" depends="compile">
+        <java failonerror="true" fork="true" classname="com.google.gwt.dev.Compiler">
+            <classpath>
+                <!-- src dir is added to ensure the module.xml file(s) are on the classpath -->
+				<pathelement location="src"/> 
+                <path refid="project.classpath"/>
+            </classpath>
+            <jvmarg value="-Xmx1024M"/>
+            <arg value="com.summit.emr.eyeexam.EyeExamEMR"/>
+        	<arg value="com.doctorsoft.ehr.refresh.Refresh"/>
+            <arg value="com.doctorsoft.ehr.portal.Portal"/>
+         </java>
+    </target>
+	
+</project>

@@ -1,0 +1,91 @@
+@CHARSET "UTF-8";
+@sprite .file0{
+	gwt-image: "file0";
+}
+
+@sprite .file1{
+	gwt-image: "file1";
+}
+
+@sprite .file2{
+	gwt-image: "file2";
+}
+
+@sprite .file3{
+	gwt-image: "file3";
+}
+
+@sprite .file4{
+	gwt-image: "file4";
+}
+
+@sprite .file5{
+	gwt-image: "file5";
+}
+
+@sprite .file6{
+	gwt-image: "file6";
+}
+
+@sprite .downArrowSmall{
+	gwt-image: "downArrowSmall";
+}
+
+@sprite .deleteSmall{
+	gwt-image: "deleteSmall";
+}
+
+@sprite .info{
+	gwt-image: "info";
+}
+
+@sprite .smallInfo{
+	gwt-image: "smallInfo";
+}
+
+@sprite .fileRefresh{
+	gwt-image: "fileRefresh";
+}
+
+@sprite .upload{
+	gwt-image: "upload";
+}
+
+@sprite .refresh{
+	gwt-image: "refresh";
+}
+
+@sprite .star{
+	gwt-image: "star";
+	display: inline-block;
+}
+
+@sprite .user{
+	gwt-image: "user";
+}
+
+@sprite .gwt{
+	gwt-image: "gwt";
+}
+
+@sprite .appengine{
+	gwt-image: "appengine";
+}
+
+@sprite .smallPhotoStarred{
+	gwt-image: "smallPhotoStarred";
+}
+
+@sprite .trash_delete{
+	gwt-image: "trash_delete";
+}
+
+@sprite .folder_download{
+	gwt-image: "folder_download";
+}
+
+@sprite .info16{
+	gwt-image: "info16";
+}
+
+

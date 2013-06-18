@@ -1,0 +1,32 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style>
+	.image {
+		display: inline-block;
+		vertical-align: middle;
+		margin-left: 5px;
+	}
+
+	.label {
+		color: white;
+		font-size: medium;
+		vertical-align: middle;
+	}
+
+	.greenButton {
+		background-color: #80AA29;
+		box-shadow: 0 0 4px 1px #8C8233;
+		border-color: #4C7F29;
+		border-radius: 1px;	
+		padding: 5px 10px;
+		cursor: pointer;
+		display: inline-block;
+		margin: 10px 0px;
+	}
+	</ui:style>
+	    <g:FlowPanel styleName="{style.greenButton}">
+			<g:InlineLabel ui:field="label" styleName="{style.label}"/>
+			<g:SimplePanel ui:field="image" styleName="{style.image}"/>
+		</g:FlowPanel>
+</ui:UiBinder> 

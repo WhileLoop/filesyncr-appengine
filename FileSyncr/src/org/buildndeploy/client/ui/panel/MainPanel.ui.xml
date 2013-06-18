@@ -1,0 +1,85 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:d="urn:import:org.buildndeploy.client.ui.file"
+	xmlns:w="urn:import:org.buildndeploy.client.ui.widget"
+	xmlns:p="urn:import:org.buildndeploy.client.ui.panel">
+	<ui:with field='res' type='org.buildndeploy.client.resource.Resources'/>
+	<ui:style>
+		
+		.buttonRow {
+			margin: 20px 0;
+			width: 100%;
+		}
+
+		.button {
+			display: inline-block;
+		}
+
+		.pointer {
+			cursor: pointer;
+		}
+
+		.help {
+			cursor: help;
+		}
+
+		.no {
+			cursor: not-allowed;
+		}
+
+		.topMenu {
+			position: relative;
+			margin: 0 0 5px 0px;
+			width: 100%;
+			top: -5px;
+		}
+
+		.borderBox {
+			background-color: #FAF3CA !important;
+			border: 1px solid #8C8233;
+			border-radius: 1px;
+			box-shadow: 0 0 4px 1px #8C8233 inset;
+		}
+
+		.otherContainer {
+			display: block;
+			padding: 15px;
+			margin: 10px 0;
+		}
+
+		.FileIconContainer {
+			min-height: 150px;
+		}
+
+		.leftMargin {
+			margin-left: 5px;
+		}
+
+		.logo {
+			display: inline-block;
+			vertical-align: middle;
+		}
+				
+	</ui:style>
+	
+	<g:HTMLPanel>
+		<p:SpacedPanel styleName="{style.topMenu} {style.borderBox}"> 
+	    	<w:ImageButton text="Icons By Pawel Kadysz" url="http://www.iconfinder.com/iconsets/Hand_Drawn_Web_Icon_Set" 	img="{res.css.user}" />
+	    	<w:ImageButton text="About Me" 				url="http://www.buildndeploy.com" 									img="{res.css.star}" />
+	    	<w:ImageButton text="Get the Code" 			url="http://www.buildndeploy.com" 									img="{res.css.smallPhotoStarred}" />
+		</p:SpacedPanel>
+		<p:SpacedPanel styleName="{style.buttonRow}">
+			<w:UploadButton ui:field="uploadButton" 	styleName="{style.button} {style.pointer}"/>
+			<g:SimplePanel  ui:field="helpButton" 		styleName="{style.button} {style.help} {res.css.info}"/>
+			<g:SimplePanel  ui:field="trashButton" 		styleName="{style.button} {style.no} {res.css.trash_delete}"/>
+			<g:SimplePanel  ui:field="downloadButton" 	styleName="{style.button} {style.no} {res.css.folder_download}"/>
+		</p:SpacedPanel>
+		<d:IconPanel ui:field="draggablePanel" 	styleName="{style.borderBox} {style.FileIconContainer} {style.otherContainer}"/>
+		<p:ChatPanel ui:field="chatPanel" 		styleName="{style.borderBox} {style.otherContainer}"/>
+		<div class="{res.css.appengine} {style.logo}"/>
+		<div class="{res.css.gwt} {style.logo} {style.leftMargin}"/>
+		<div>4</div>
+	</g:HTMLPanel>
+	
+</ui:UiBinder>
