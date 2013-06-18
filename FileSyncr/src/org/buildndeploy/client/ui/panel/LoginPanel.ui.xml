@@ -63,9 +63,9 @@
 
 	</ui:style>
 	<g:HTMLPanel styleName="{style.padded}">
-	    <h1 style="text-align:center;">Welcome to FooBar</h1> 
+	    <h1 style="text-align:center;">Welcome to FileSyncr</h1> 
 	    <p class="{style.paragraph}">
-	        FooBar is a collaborative file sharing site. You can upload, organize, and download files using simple drag and drop.
+	        FileSyncr is a collaborative file sharing site. You can upload, organize, and download files using simple drag and drop.
 	    	<span style="color:red;" class="{style.paragraph}">
 	    	    All user actions are immediatley updated to all users. There is never a need to press refresh!
 	    	</span>	    
