@@ -1,0 +1,63 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui">
+	<ui:style type="org.buildndeploy.client.ui.file.DetailPopup.UiStyle">
+		.padded {
+			padding: 15px;
+		}
+
+		div.close {
+			text-align: center;
+		}
+
+		button.close {
+			display: block;
+			color: white;
+			cursor: pointer;
+			background-color: #80AA29;
+			box-shadow: 0 0 4px 1px #8C8233;
+			border-color: #4C7F29;
+			border-radius: 1px;
+			padding: 10px 5px;
+			display: inline-block;
+			margin: 15px;
+		}
+
+		table.text tr td {
+			font-size: medium;
+		}
+
+		table.text tr td:first-child {
+			padding-right: 5px;
+			font-weight: bold;
+		}
+
+		.greenBox {
+			background-color: #FAF3CA !important;
+			border: 1px solid #8C8233;
+			border-radius: 1px;
+			box-shadow: 0 0 4px 1px #8C8233 inset;
+			z-index: 1;
+			padding: 0 10px 0 10px;
+		}
+
+		.darkGlass {
+			background-color: #000000;
+			opacity: 0.6;
+			cursor: not-allowed; 
+		}
+	
+	</ui:style>
+	<g:HTMLPanel styleName="{style.padded}">
+	    <table class="{style.text}">
+	        <tr> <td>Filename:</td> 	<td ui:field="name"/> 		</tr>
+	        <tr> <td>Size:</td> 		<td ui:field="size"/> 		</tr>
+	        <tr> <td>Created on:</td> 	<td ui:field="created"/> 	</tr>
+	        <tr> <td>Mime type:</td> 	<td ui:field="type"/> 		</tr>
+	        <tr> <td>MD5 hash:</td> 	<td ui:field="hash"/> 		</tr>
+	    </table>
+	<div class="{style.close}">
+		<g:Button styleName="{style.close}" ui:field="button">Close</g:Button>
+	</div>
+	</g:HTMLPanel>
+</ui:UiBinder> 

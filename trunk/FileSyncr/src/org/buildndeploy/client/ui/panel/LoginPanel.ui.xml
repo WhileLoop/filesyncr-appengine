@@ -1,0 +1,82 @@
+<!DOCTYPE ui:UiBinder SYSTEM "http://dl.google.com/gwt/DTD/xhtml.ent">
+<ui:UiBinder xmlns:ui="urn:ui:com.google.gwt.uibinder"
+	xmlns:g="urn:import:com.google.gwt.user.client.ui"
+	xmlns:w="urn:import:org.buildndeploy.client.ui.widget"
+	xmlns:p="urn:import:org.buildndeploy.client.ui.panel">
+	<ui:with field='res' type='org.buildndeploy.client.resource.Resources'/>
+	<ui:style type="org.buildndeploy.client.ui.panel.LoginPanel.UiStyle">
+		.text {
+			font-size: 13px;
+			padding: 7px 0;
+		}
+
+		.login {
+			display: block;
+			color: white;
+			cursor: pointer;
+			background-color: #80AA29;
+			box-shadow: 0 0 4px 1px #8C8233;
+			border-color: #4C7F29;
+			border-radius: 1px;
+			padding: 10px 5px;
+			display: inline-block;
+			margin: 15px;
+			float: right;
+		}
+
+		.input {
+			width: 100%;
+			padding: 4px 0 4px 0;
+			display: block;
+			border: 0 none;
+			font-size: 22px;
+		}
+
+		.greenPanel {
+			background-color: #FAF3CA !important;
+			border: 1px solid #8C8233;
+			border-radius: 1px;
+			box-shadow: 0 0 4px 1px #8C8233 inset;
+			z-index: 1;
+		}
+
+		.darkGlass {
+			background-color: #000000;
+			opacity: 0.6;
+			z-index: 1;
+		}
+
+		.wrapper {
+			width: 90%;
+			margin: auto;
+		}
+
+		.paragraph {
+			display: inline;
+			font-size: 16px;
+			line-height: 22px;
+		}
+
+		.padded {
+			padding: 0 10px;
+		}
+
+	</ui:style>
+	<g:HTMLPanel styleName="{style.padded}">
+	    <h1 style="text-align:center;">Welcome to FileSyncr</h1> 
+	    <p class="{style.paragraph}">
+	        FileSyncr is a collaborative file sharing site. You can upload, organize, and download files using simple drag and drop.
+	    	<span style="color:red;" class="{style.paragraph}">
+	    	    All user actions are immediatley updated to all users. There is never a need to press refresh!
+	    	</span>	    
+	    	Click the <span class="{res.css.info16}" style="display:inline-block;"></span> button for a detailed tour. You may pick a username so other users can identify you.
+	    </p>
+	    <div class="{style.wrapper}">
+			<div 	class="{style.text}">Username:</div>
+			<input 	class="{style.input}" type="text"					ui:field="usernameInput" />
+		</div>
+		<g:Button styleName="{style.login}"							ui:field="loginButton">
+		    Get Started!
+		</g:Button>
+	</g:HTMLPanel>
+</ui:UiBinder>

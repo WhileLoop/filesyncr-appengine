@@ -1,0 +1,76 @@
+.FileIcon {
+	vertical-align: middle;
+	border-left: 1px solid #FAF3CA;		/* Same color as background, re-colors on hover, needed so they don't move when hover */
+	width: 128px; 						/* Needed to keep file name from stretching */
+	padding: 3px;
+}
+
+.imageDragAndDrop {
+	border-left: 1px solid #E3D383 !important;  	/* Re-color border on hover */
+}
+
+
+/* Detail Popup */
+.greenBox {
+	background-color: #E3D383 !important;
+	border: 1px solid #8C8233;
+	border-radius: 1px;
+	box-shadow: 0 0 4px 1px #8C8233 inset;
+}
+
+html {
+	height: 100%;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+body {
+	/* background-color: #F8EDAC !important; */
+	/* background-color: #DDEDAC !important; */
+	background-color: #E3D383 !important;
+	margin: 0 !important;
+	padding: 0 !important;
+	height: 100%;
+}
+
+.content {
+	background-color: #DDEDAC !important;
+	padding: 0 15px !important;
+	min-height: 100%;
+	height: auto !important;
+}
+
+					/* 800px < width < 1200px */
+@media screen and (min-width: 800px) and  (max-width: 1200px) {
+	.content {
+		margin: auto;
+		vertical-align: middle;
+		width: 80%;
+		border-width: 0 1px;
+		border-style: solid;
+		border-color: #8C8233;
+		border-radius: 1px;
+	}
+}
+	
+@media screen and (min-width: 1200px) and  (max-width: 1800px){
+	.content {
+		margin: auto;
+		width: 60%;
+		border-width: 0 1px;
+		border-style: solid;
+		border-color: #8C8233;
+		border-radius: 1px;
+	}
+}
+
+@media screen and (min-width: 1800px) {
+	.content {
+		margin: auto;
+		width: 40%;
+		border-width: 0 1px;
+		border-style: solid;
+		border-color: #8C8233;
+		border-radius: 1px;
+	}
+}
