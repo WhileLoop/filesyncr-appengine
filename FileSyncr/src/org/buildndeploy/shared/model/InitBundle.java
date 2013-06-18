@@ -6,7 +6,6 @@ public class InitBundle implements IsSerializable {
 	
 	private String blobstoreUrl;
 	private String channelToken;
-	private String seed;
 	private boolean accessLevel;
 	private String filesJSON;
 	
@@ -30,10 +29,6 @@ public class InitBundle implements IsSerializable {
 		this.accessLevel = b;
 	}
 	
-	public void setClientToken(String s) {
-		seed = s;
-	}
-	
 	public String getBlobstoreUrl() {
 		return blobstoreUrl;
 	}
@@ -49,8 +44,5 @@ public class InitBundle implements IsSerializable {
 	public String getFiles() {
 		return filesJSON;
 	}
-	
-	public String getSessionId() {
-		return seed;
-	}
+
 }

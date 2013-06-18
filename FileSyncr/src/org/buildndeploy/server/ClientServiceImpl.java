@@ -54,9 +54,6 @@ public class ClientServiceImpl extends RemoteServiceServlet implements ClientSer
 		Collection<__BlobInfo__> files = FileCollectionUtil.getFileList();
 		String json = new Gson().toJson(files);
 		b.setFiles(json);
-		// Session Id for client side cookie
-		String s = SessionUtil.getSessionId(getThreadLocalRequest());
-		b.setClientToken(s);
 		return b;
 	}
 

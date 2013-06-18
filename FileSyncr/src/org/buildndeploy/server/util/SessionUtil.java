@@ -31,7 +31,6 @@ public class SessionUtil {
 	public static HttpSession getSession(HttpServletRequest req) {
 		HttpSession oldSession = req.getSession(false);
 		if (oldSession != null) {
-			log.info("Processing session " + oldSession.getId());
 			long created = oldSession.getCreationTime();
 			log.info("was created " + new Date(created));
 			long now = new Date().getTime();
