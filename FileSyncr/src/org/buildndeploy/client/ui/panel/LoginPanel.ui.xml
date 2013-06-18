@@ -75,8 +75,6 @@
 	    <div class="{style.wrapper}">
 			<div 	class="{style.text}">Username:</div>
 			<input 	class="{style.input}" type="text"					ui:field="usernameInput" />
-			<div 	class="{style.text}" >Secret Key:</div>
-			<input	class="{style.input}"								ui:field="secretKeyInput" />
 		</div>
 		<g:Button styleName="{style.login}"							ui:field="loginButton">
 		    Get Started!

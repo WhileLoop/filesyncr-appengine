@@ -35,8 +35,7 @@ public class LoginPanel extends PopupPanel {
 	
 	@UiField
 	InputElement 
-	usernameInput,
-	secretKeyInput;
+	usernameInput;
 	
 	@UiField
 	Button loginButton;
@@ -64,9 +63,8 @@ public class LoginPanel extends PopupPanel {
 					username = "Anonymous";
 				}
 				
-				String secretKey = secretKeyInput.getValue();
 				instance.hide();
-				AppController.getService().getInitBundle(username, secretKey, new AsyncCallback<InitBundle>() {
+				AppController.getService().getInitBundle(username, "", new AsyncCallback<InitBundle>() {
 					
 					@Override
 					public void onSuccess(InitBundle result) {

@@ -79,7 +79,6 @@
 		<p:ChatPanel ui:field="chatPanel" 		styleName="{style.borderBox} {style.otherContainer}"/>
 		<div class="{res.css.appengine} {style.logo}"/>
 		<div class="{res.css.gwt} {style.logo} {style.leftMargin}"/>
-		<div>5</div>
 	</g:HTMLPanel>
 	
 </ui:UiBinder>
