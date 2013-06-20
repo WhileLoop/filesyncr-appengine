@@ -67,7 +67,7 @@
 		<p:SpacedPanel styleName="{style.topMenu} {style.borderBox}"> 
 	    	<w:ImageButton text="Icons By Pawel Kadysz" url="http://www.iconfinder.com/iconsets/Hand_Drawn_Web_Icon_Set" 	img="{res.css.user}" />
 	    	<w:ImageButton text="About Me" 				url="http://www.buildndeploy.com" 									img="{res.css.star}" />
-	    	<w:ImageButton text="Get the Code" 			url="http://www.buildndeploy.com" 									img="{res.css.smallPhotoStarred}" />
+	    	<w:ImageButton text="Get the Code" 			url="https://code.google.com/p/filesyncr-appengine/" 				img="{res.css.smallPhotoStarred}" />
 		</p:SpacedPanel>
 		<p:SpacedPanel styleName="{style.buttonRow}">
 			<w:UploadButton ui:field="uploadButton" 	styleName="{style.button} {style.pointer}"/>

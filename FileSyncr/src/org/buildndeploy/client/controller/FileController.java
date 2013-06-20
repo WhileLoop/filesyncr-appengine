@@ -55,23 +55,23 @@ public class FileController {
 		};
 		IconPanel.dragController.registerDropController(deleteDropController);
 		
-		SimpleDropController s = new SimpleDropController(mainPanel.downloadButton) {
+		SimpleDropController downloadDropController = new SimpleDropController(mainPanel.downloadButton) {
 			
 			public void onDrop(DragContext context) {
 				((FileIcon) context.draggable).download();
 				new OneTimeCssAnimator(mainPanel.downloadButton, "shakes", 1000);
 			}
 		};
-		IconPanel.dragController.registerDropController(s);
+		IconPanel.dragController.registerDropController(downloadDropController);
 		
-		SimpleDropController x = new SimpleDropController(mainPanel.helpButton) {
+		SimpleDropController helpDropController = new SimpleDropController(mainPanel.helpButton) {
 			
 			public void onDrop(DragContext context) {
 				((FileIcon) context.draggable).showDetail();
 				new OneTimeCssAnimator(mainPanel.helpButton, "shakes", 1000);
 			}
 		};
-		IconPanel.dragController.registerDropController(x);
+		IconPanel.dragController.registerDropController(helpDropController);
 	}
 
 	private void initChannel() {
@@ -176,6 +176,9 @@ public class FileController {
 			IntroJS.mark("Click here to download.","top",  f.download);
 			IntroJS.mark("Click here to view file details.","top",  f.info);
 			IntroJS.mark("Click here to delete.", "top", f.delete);
+			IntroJS.mark("Drag files here to delete them.", "top", mainPanel.trashButton);
+			IntroJS.mark("Drag files here to download them.", "top", mainPanel.downloadButton);
+			IntroJS.mark("You can send chat messages to other users here.", "top", mainPanel.chatPanel);
 			
 			IntroJS.setOnChange(new IntroJS.ChangeCallback() {
 				

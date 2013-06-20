@@ -75,7 +75,4 @@ public interface Resources extends ClientBundle {
 	
 	@Source("images/folder_download.png")
 	public ImageResource folder_download();
-	
-	@Source("images/info16.png")
-	public ImageResource info16();
 }

@@ -69,14 +69,14 @@
 	    	<span style="color:red;" class="{style.paragraph}">
 	    	    All user actions are immediatley updated to all users. There is never a need to press refresh!
 	    	</span>	    
-	    	Click the <span class="{res.css.info16}" style="display:inline-block;"></span> button for a detailed tour. You may pick a username so other users can identify you. 
+	    	Click the <span class="{res.css.smallInfo}" style="display:inline-block;"></span> button for a detailed tour. You may pick a username so other users can identify you. 
 	    	If you have been given a secret key, you may also enter it now for access to additional functionality.
 	    </p>
 	    <div class="{style.wrapper}">
 			<div 	class="{style.text}">Username:</div>
-			<input 	class="{style.input}" type="text"					ui:field="usernameInput" />
+			<input 	class="{style.input}" type="text" ui:field="usernameInput" />
 		</div>
-		<g:Button styleName="{style.login}"							ui:field="loginButton">
+		<g:Button styleName="{style.login}"	ui:field="loginButton">
 		    Get Started!
 		</g:Button>
 	</g:HTMLPanel>

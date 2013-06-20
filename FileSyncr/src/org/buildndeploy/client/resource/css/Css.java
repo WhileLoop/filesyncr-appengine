@@ -24,5 +24,4 @@ public interface Css extends CssResource {
 	public String smallPhotoStarred();
 	public String trash_delete();
 	public String folder_download();
-	public String info16();
 }
