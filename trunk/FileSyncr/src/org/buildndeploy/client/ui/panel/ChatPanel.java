@@ -30,8 +30,6 @@ public class ChatPanel extends FlowPanel {//TODO make composite w/ ui binder
 		});
 		in.setWidth("100%");
 		in.getElement().getStyle().setProperty("maxWidth", "400px");
-		
-		
 		send = new Button("Send");
 		send.getElement().getStyle().setMarginLeft(5, Unit.PX);
 		send.addClickHandler(new ClickHandler() {
@@ -42,8 +40,6 @@ public class ChatPanel extends FlowPanel {//TODO make composite w/ ui binder
 				in.setText("");
 			}
 		});
-		
-		
 		this.add(in);
 		this.add(send);
 	}
