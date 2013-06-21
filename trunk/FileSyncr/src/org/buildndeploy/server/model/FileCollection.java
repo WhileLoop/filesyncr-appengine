@@ -32,7 +32,7 @@ public class FileCollection implements IsSerializable {
 	 * The order of the blob keys in this list determine the order that 
 	 * FileDetails are shown on the client.
 	 */
-	List<String> blobKeys = new LinkedList<String>();
+	private List<String> blobKeys = new LinkedList<String>();
 	
     /**
      * Get a FileCollection entity from the datastore. There should always be only one FileCollection entity in the datastore. 
@@ -48,7 +48,7 @@ public class FileCollection implements IsSerializable {
 	}
 	
 	public FileCollection() {
-		
+		; // Ignore
 	}
 	
 	/** @return - the number of blob keys contained within. */
@@ -60,6 +60,10 @@ public class FileCollection implements IsSerializable {
 	public void add(String b) {
 //		Key<__BlobInfo__> key = Key.create(__BlobInfo__.class, b);
 		blobKeys.add(b);
+	}
+	
+	public List<String> getBlobKeys() {
+		return blobKeys;
 	}
 	
 	public FileCollection move(int to, int from) {
@@ -78,7 +82,11 @@ public class FileCollection implements IsSerializable {
 	
 	/**  @return - the underlying list of blob key strings.	 */
 	public Collection<__BlobInfo__> getBlobInfos() {
-		return	ObjectifyUtil.ofy().load().type(__BlobInfo__.class).ids(blobKeys).values();
+		List<__BlobInfo__> blobs = new LinkedList<__BlobInfo__>();
+		for (String s : blobKeys) {
+			blobs.add(ObjectifyUtil.ofy().load().type(__BlobInfo__.class).id(s).get());
+		}
+		return blobs;
 	}
 
 	/**

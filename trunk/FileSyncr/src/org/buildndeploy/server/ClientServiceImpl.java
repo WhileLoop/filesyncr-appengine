@@ -52,6 +52,10 @@ public class ClientServiceImpl extends RemoteServiceServlet implements ClientSer
 		b.setChannelToken(channelToken);
 		// Initial Files
 		Collection<__BlobInfo__> files = FileCollectionUtil.getFileList();
+		log.info("FileContainer contains");
+		for (__BlobInfo__ blob : files) {
+			log.info(" " + blob.getBlobKey());
+		}
 		String json = new Gson().toJson(files);
 		b.setFiles(json);
 		return b;
@@ -112,6 +116,10 @@ public class ClientServiceImpl extends RemoteServiceServlet implements ClientSer
 		MoveEvent e = AutoBeanCodex.decode(beanFactory, MoveEvent.class, moveEventJson).as();
 		int toIndex = e.getTo();
 		int fromIndex = e.getFrom();
+		log.info("FileCollection contains");
+		for (String s : FileCollection.get().getBlobKeys()) {
+			log.info("  " + s);
+		}
 		FileCollection.get().move(toIndex, fromIndex).save();
 		ChannelUtil.pushMessage(moveEventJson, MessageType.MoveEvent);
 		return true;
