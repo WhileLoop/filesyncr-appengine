@@ -5,16 +5,15 @@ import java.util.logging.Logger;
 
 import org.buildndeploy.client.service.ClientService;
 import org.buildndeploy.server.model.FileCollection;
-import org.buildndeploy.server.model.__BlobInfo__;
 import org.buildndeploy.server.util.BlobstoreUtil;
 import org.buildndeploy.server.util.ChannelUtil;
-import org.buildndeploy.server.util.FileCollectionUtil;
 import org.buildndeploy.server.util.SessionUtil;
 import org.buildndeploy.shared.model.Beanery;
 import org.buildndeploy.shared.model.InitBundle;
 import org.buildndeploy.shared.model.MessageType;
 import org.buildndeploy.shared.model.MoveEvent;
 
+import com.google.appengine.api.blobstore.BlobInfo;
 import com.google.gson.Gson;
 import com.google.gwt.user.server.rpc.RemoteServiceServlet;
 import com.google.web.bindery.autobean.shared.AutoBeanCodex;
@@ -27,6 +26,7 @@ import com.google.web.bindery.autobean.vm.AutoBeanFactorySource;
 @SuppressWarnings("serial")
 public class ClientServiceImpl extends RemoteServiceServlet implements ClientService {
 	
+	@SuppressWarnings("unused")
 	private static Logger log = Logger.getLogger(ClientServiceImpl.class.getName());
     
 	// ========================================================================= //
@@ -34,28 +34,20 @@ public class ClientServiceImpl extends RemoteServiceServlet implements ClientSer
 	// ========================================================================= //
 	
 	public InitBundle getInitBundle(String username, String secretKey) {
-		
-		log.fine("test");
-		log.finer("test");
-		log.finest("test");
-		
 		InitBundle b = new InitBundle();
 		// Access Level
 		boolean accessLevel = SessionUtil.authenticateUser(username, secretKey, getThreadLocalRequest());
 		b.setAccessLevel(accessLevel);
 		// Blobstore URL
 		String blobstoreUrl = BlobstoreUtil.getUrl();
+		log.info("setting blob url");
 		b.setBlobstoreUrl(blobstoreUrl);
 		// Channel Token
-		// TODO seed is exposed to crafted request
-		String channelToken = ChannelUtil.proccesClientId(getThreadLocalRequest(), getThreadLocalResponse(), username);
+		// TODO exposed to crafted request
+		String channelToken = ChannelUtil.proccesClientId(username);
 		b.setChannelToken(channelToken);
 		// Initial Files
-		Collection<__BlobInfo__> files = FileCollectionUtil.getFileList();
-		log.info("FileContainer contains");
-		for (__BlobInfo__ blob : files) {
-			log.info(" " + blob.getBlobKey());
-		}
+		Collection<BlobInfo> files = FileCollection.get().getBlobInfos();
 		String json = new Gson().toJson(files);
 		b.setFiles(json);
 		return b;
@@ -123,6 +115,12 @@ public class ClientServiceImpl extends RemoteServiceServlet implements ClientSer
 		FileCollection.get().move(toIndex, fromIndex).save();
 		ChannelUtil.pushMessage(moveEventJson, MessageType.MoveEvent);
 		return true;
+	}
+
+	@Override
+	public String reconnect() {
+		String username = SessionUtil.getUsername(getThreadLocalRequest());
+		return ChannelUtil.proccesClientId(username);
 	}
 
 }

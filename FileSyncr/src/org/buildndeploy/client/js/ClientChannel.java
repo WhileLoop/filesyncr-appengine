@@ -4,7 +4,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.buildndeploy.client.controller.AppController;
 import org.buildndeploy.shared.model.MessageType;
+
+import com.google.gwt.user.client.rpc.AsyncCallback;
 
 public class ClientChannel {
 	
@@ -37,9 +40,24 @@ public class ClientChannel {
 			public void onError(int i, String s) {
 				//error 401 Token+timed+out.
 				log.severe("error " + i + " " + s);
-				System.out.println("error " + i + " " + s); // TODO handle timeout
+				if(s.contains("Token+timed+out")) {
+					AppController.getService().reconnect(new AsyncCallback<String>() {
+						
+						@Override
+						public void onSuccess(String result) {
+							join(result);
+							log.severe("tried to reconnect with " + result);
+						}
+						
+						@Override
+						public void onFailure(Throwable caught) {
+							// Ignore
+						}
+					});
+				}
 			}
 		});
+		
 		join(channelKey);
 	}
 	

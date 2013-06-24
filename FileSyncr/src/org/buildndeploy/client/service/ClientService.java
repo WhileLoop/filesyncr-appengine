@@ -11,4 +11,5 @@ public interface ClientService extends RemoteService {
 	public Boolean sendMessage(String s);
 	public boolean sendMoveEvent(String payload);
 	public InitBundle getInitBundle(String username, String secretKey);
+	public String reconnect();
 }

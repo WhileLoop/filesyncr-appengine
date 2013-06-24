@@ -6,16 +6,16 @@ public class BlobInfoJS  extends JavaScriptObject {
 	
 	  protected BlobInfoJS() { }
 
-	  public final native String getBlobKey() /*-{ return this.blobKey; }-*/;
+	  public final native String getBlobKey() /*-{ return this.blobKey.blobKey; }-*/;
 	  
-	  public final native String getContentType() /*-{ return this.content_type; }-*/;
+	  public final native String getContentType() /*-{ return this.contentType; }-*/;
 	  
 	  public final native String getCreation() /*-{ return this.creation; }-*/;
 	  
 	  public final native String getFilename() /*-{ return this.filename; }-*/;
 	  
-	  public final native String getMd5Hash() /*-{ return this.md5_hash; }-*/;
+	  public final native String getMd5Hash() /*-{ return this.md5Hash; }-*/;
 	  
-	  public final native String getSize() /*-{ return this.size; }-*/;
+	  public final native int getSize() /*-{ return this.size; }-*/;
 
 }

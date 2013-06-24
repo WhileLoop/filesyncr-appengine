@@ -1,14 +1,14 @@
 package org.buildndeploy.server.model;
 
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Logger;
 
+import org.buildndeploy.server.util.BlobstoreUtil;
 import org.buildndeploy.server.util.ObjectifyUtil;
 
+import com.google.appengine.api.blobstore.BlobInfo;
 import com.google.gwt.user.client.rpc.IsSerializable;
-import com.googlecode.objectify.Key;
 import com.googlecode.objectify.annotation.Entity;
 import com.googlecode.objectify.annotation.Id;
 
@@ -81,12 +81,8 @@ public class FileCollection implements IsSerializable {
 	}
 	
 	/**  @return - the underlying list of blob key strings.	 */
-	public Collection<__BlobInfo__> getBlobInfos() {
-		List<__BlobInfo__> blobs = new LinkedList<__BlobInfo__>();
-		for (String s : blobKeys) {
-			blobs.add(ObjectifyUtil.ofy().load().type(__BlobInfo__.class).id(s).get());
-		}
-		return blobs;
+	public List<BlobInfo> getBlobInfos() {
+		return	BlobstoreUtil.loadBlobInfos(blobKeys);
 	}
 
 	/**
@@ -95,8 +91,7 @@ public class FileCollection implements IsSerializable {
 	 * @return 
 	 */
 	public FileCollection remove(String s) {
-		Key<__BlobInfo__> key = Key.create(__BlobInfo__.class, s);
-		blobKeys.remove(key);
+		BlobstoreUtil.delete(s);
 		return this;
 	}
 

@@ -4,6 +4,7 @@
 	<ui:style type="org.buildndeploy.client.ui.file.DetailPopup.UiStyle">
 		.padded {
 			padding: 15px;
+			display: table;
 		}
 
 		div.close {
@@ -18,9 +19,14 @@
 			box-shadow: 0 0 4px 1px #8C8233;
 			border-color: #4C7F29;
 			border-radius: 1px;
-			padding: 10px 5px;
+			padding: 15px 15px;
 			display: inline-block;
 			margin: 15px;
+		}
+
+		table.text {
+			table-layout: fixed;
+			width: 100% !important;
 		}
 
 		table.text tr td {
@@ -30,6 +36,7 @@
 		table.text tr td:first-child {
 			padding-right: 5px;
 			font-weight: bold;
+			width: 100px;
 		}
 
 		.greenBox {
@@ -45,6 +52,12 @@
 			background-color: #000000;
 			opacity: 0.6;
 			cursor: not-allowed; 
+		}
+
+		.text td {
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			overflow: hidden;
 		}
 	
 	</ui:style>

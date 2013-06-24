@@ -15,7 +15,7 @@ import com.google.appengine.api.blobstore.BlobstoreServiceFactory;
 
 public class BlobstoreUtil {
 	
-	private static Logger log = Logger.getLogger(BlobstoreUtil.class.getName());
+	private static final Logger log = Logger.getLogger(BlobstoreUtil.class.getName());
 	
 	/**
 	 * Create a Blobstore URL which points to the upload servlet. If the servlet mapping is changed
@@ -51,31 +51,25 @@ public class BlobstoreUtil {
 		}
 		return flatList;
 	}
-	
-    public static List<BlobInfo> getBlobInfos_S(List<String> keyStrings) {
-    	List<BlobKey> blobKeys = new LinkedList<BlobKey>();
-    	for (String s : keyStrings) {
-    		blobKeys.add(new BlobKey(s));
-    	}
-    	return getBlobInfos(blobKeys);
-    }
-    
+	    
 	/**
-	 * Queries a list of BlobInfos from a list of Blob key strings.
-	 * The returned BlobInfos will be in the same order as the list of key strings. 
-	 * @param blobKeys - list of blob key strings
+	 * Loads a list of BlobInfos from a list of blobkey Strings.
+	 * Order is preserved.
+	 * @param keyStrings - list of blobkeys as Strings
 	 * @return - list of BlobInfos in the same order as the blob keys.
 	 */
-	public static List<BlobInfo> getBlobInfos(List<BlobKey> blobKeys) {
+	public static List<BlobInfo> loadBlobInfos(List<String> keyStrings) {
 		BlobInfoFactory infoFactory = new BlobInfoFactory();
 		List<BlobInfo> blobInfos = new LinkedList<BlobInfo>();
-		for (BlobKey key : blobKeys) {
-			BlobInfo bi = infoFactory.loadBlobInfo(key);
-			if (bi == null) {
-				log.severe("Could not load BlobInfo from BlobKey " + key);
+		for (String keyString : keyStrings) {
+			log.info("getting blob");
+			BlobInfo blobInfo = infoFactory.loadBlobInfo(new BlobKey(keyString));
+			log.info("got blob");
+			if (blobInfo == null) {
+				log.severe("Could not load BlobInfo from BlobKey " + keyString);
 				continue;
 			}
-			blobInfos.add(bi);
+			blobInfos.add(blobInfo);
 		}
 		return blobInfos;
 	}

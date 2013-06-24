@@ -1,7 +1,6 @@
 package org.buildndeploy.server;
 
 import java.io.IOException;
-import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -11,12 +10,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.buildndeploy.server.model.FileCollection;
-import org.buildndeploy.server.model.__BlobInfo__;
 import org.buildndeploy.server.util.BlobstoreUtil;
 import org.buildndeploy.server.util.ChannelUtil;
-import org.buildndeploy.server.util.ObjectifyUtil;
 import org.buildndeploy.shared.model.MessageType;
 
+import com.google.appengine.api.blobstore.BlobInfo;
 import com.google.gson.Gson;
 
 /**
@@ -43,10 +41,8 @@ public class UploadServlet extends HttpServlet {
 			log.warning("empty upload");
 		}
 		
-		
-		Collection<__BlobInfo__> blobInfos = ObjectifyUtil.ofy().load().type(__BlobInfo__.class).ids(uploadedKeys).values();
+		List<BlobInfo> blobInfos = BlobstoreUtil.loadBlobInfos(uploadedKeys);
 		Gson gson = new Gson();
-		System.out.println(gson.toJson(blobInfos));
 		ChannelUtil.pushMessage(gson.toJson(blobInfos), MessageType.AddEvent); // Also push to sender.
 		
 		// Upload URLs are one time use only, need to send a new URL to the client.

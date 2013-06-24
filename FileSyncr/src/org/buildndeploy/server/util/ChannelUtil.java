@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.buildndeploy.server.model.ChannelConnection;
 import org.buildndeploy.shared.model.MessageType;
@@ -25,29 +24,32 @@ public class ChannelUtil {
 	private static final long FIVE_MINUTES = 60 * 5 * 1000;
 	
 	private static SecureRandom rand = new SecureRandom();
-	private static Logger log = Logger.getLogger(FileCollectionUtil.class.getName());
+	private static Logger log = Logger.getLogger(ChannelUtil.class.getName());
 
 	// ========================================================================= //
 	//				CHANNEL MANAGMENT											 //
 	// ========================================================================= //
 	
-	public static String proccesClientId(HttpServletRequest req, HttpServletResponse res, String username) {
+	public static String proccesClientId(String username) {
 		long now = new Date().getTime();
 		// Check for available channel
+		log.info("begin query");
 		ChannelConnection availableChannel = ObjectifyUtil.ofy().load()
 			.type(ChannelConnection.class)
 			.filter("active", false)
 			.filter("expires >", now + FIVE_MINUTES)
 			.first().get();
 		if (availableChannel != null) {
-			availableChannel.setUsername(username).save();
 			log.info("found available channel " + availableChannel.getChannelToken());
+			availableChannel.setUsername(username).save();
 			return availableChannel.getChannelToken();
 		} else {
 			// Generate new client id
+			log.info("gen rand");
 			String newClientId = new BigInteger(130, rand).toString(32);
 			ChannelService channelService = ChannelServiceFactory.getChannelService();
 			// Open new channel
+			log.info("duration minutes: " + CHANNEL_TOKEN_TIMEOUT_MINUTES);
 			String newChannelToken = channelService.createChannel(newClientId, CHANNEL_TOKEN_TIMEOUT_MINUTES);
 			// Save new entity
 			long expires = new Date().getTime() + CHANNEL_TOKEN_TIMEOUT_MILIS;
