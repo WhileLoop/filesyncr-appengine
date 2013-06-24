@@ -45,6 +45,8 @@ public class DetailPopup extends PopupPanel {
 
 	protected DetailPopup(BlobInfoJS b) {
 		setWidget(uiBinder.createAndBindUi(this));
+		this.getElement().getStyle().setProperty("maxWidth", "540px");
+		this.getElement().getStyle().setProperty("height", "230px");
 		instance = this;
 		this.setStyleName(style.greenBox());
 		setGlassStyleName(style.darkGlass());

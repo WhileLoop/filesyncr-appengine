@@ -8,6 +8,8 @@ import com.google.gwt.dom.client.InputElement;
 import com.google.gwt.dom.client.Style.Unit;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.event.dom.client.KeyDownEvent;
+import com.google.gwt.event.dom.client.KeyDownHandler;
 import com.google.gwt.event.logical.shared.ResizeEvent;
 import com.google.gwt.event.logical.shared.ResizeHandler;
 import com.google.gwt.event.shared.HandlerRegistration;
@@ -49,40 +51,62 @@ public class LoginPanel extends PopupPanel {
 		instance = this;
 		this.getElement().getStyle().setWidth(80, Unit.PCT);
 		this.getElement().getStyle().setProperty("maxWidth", "540px");
+		this.getElement().getStyle().setProperty("height", "555px");
 		setWidget(uiBinder.createAndBindUi(this));
 		this.setStyleName(style.greenPanel());
 //		setGlassStyleName("darkGlass");
 		setGlassStyleName(style.darkGlass());
 		setGlassEnabled(true);
+		
+		
+
+
+		this.addDomHandler(new KeyDownHandler() {
+			
+			@Override
+			public void onKeyDown(KeyDownEvent event) {
+				if (event.getNativeKeyCode() == 13) {
+					doClick();
+				}
+			}
+		}, KeyDownEvent.getType());
+		
 		loginButton.addClickHandler(new ClickHandler() {
 			
 			@Override
 			public void onClick(ClickEvent event) {
-				String username = usernameInput.getValue();
-				if (username.equals("")) {
-					username = "Anonymous";
-				}
-				
-				instance.hide();
-				AppController.getService().getInitBundle(username, "", new AsyncCallback<InitBundle>() {
-					
-					@Override
-					public void onSuccess(InitBundle result) {
-						signalLoginEvent(result);
-					}
-					
-					@Override
-					public void onFailure(Throwable caught) {
-						System.out.println("init user failed");
-					}
-				});
+				doClick();
+			}
+		});
+	}
+	
+	private void doClick() {
+		String username = usernameInput.getValue();
+		if (username.equals("")) {
+			username = "Anonymous";
+		}
+		
+		instance.hide();
+		AppController.getService().getInitBundle(username, "", new AsyncCallback<InitBundle>() {
+			
+			@Override
+			public void onSuccess(InitBundle result) {
+				signalLoginEvent(result);
+			}
+			
+			@Override
+			public void onFailure(Throwable caught) {
+				System.out.println("init user failed");
 			}
 		});
 	}
 	
 	@Override
 	public void onLoad() {
-		System.out.println("a");
+		
+		usernameInput.scrollIntoView();
+		usernameInput.focus();
+		
 		r = Window.addResizeHandler(new ResizeHandler() {
 			
 			@Override

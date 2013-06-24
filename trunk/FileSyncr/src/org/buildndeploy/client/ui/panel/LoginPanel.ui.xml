@@ -6,7 +6,7 @@
 	<ui:with field='res' type='org.buildndeploy.client.resource.Resources'/>
 	<ui:style type="org.buildndeploy.client.ui.panel.LoginPanel.UiStyle">
 		.text {
-			font-size: 13px;
+			font-size: 16px;
 			padding: 7px 0;
 		}
 
@@ -53,8 +53,8 @@
 
 		.paragraph {
 			display: inline;
-			font-size: 16px;
-			line-height: 22px;
+			font-size: 24px;
+			line-height: 1.5;
 		}
 
 		.padded {

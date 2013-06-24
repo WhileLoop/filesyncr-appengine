@@ -28,6 +28,7 @@ import com.google.gwt.user.client.ui.RootPanel;
 
 public class AppController implements EntryPoint {
 	
+	@SuppressWarnings("unused")
 	private static Logger log = Logger.getLogger(AppController.class.getName());
 
 	static { Resources.INSTANCE.css().ensureInjected(); }

@@ -2,7 +2,6 @@ package org.buildndeploy.server.util;
 
 import org.buildndeploy.server.model.ChannelConnection;
 import org.buildndeploy.server.model.FileCollection;
-import org.buildndeploy.server.model.__BlobInfo__;
 
 import com.googlecode.objectify.Objectify;
 import com.googlecode.objectify.ObjectifyFactory;
@@ -13,7 +12,6 @@ public class ObjectifyUtil {
     static {
 //        factory().register(_ah_SESSION.class);
         factory().register(FileCollection.class);
-        factory().register(__BlobInfo__.class);
         factory().register(ChannelConnection.class);
     }
 

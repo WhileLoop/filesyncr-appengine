@@ -123,10 +123,10 @@ public class FileIcon extends Composite  implements HasMouseMoveHandlers, HasMou
 			
 			@Override
 			public void onClick(ClickEvent event) {
+				event.stopPropagation();
 				if (Window.confirm("Delete?")) {
 					AppController.getService().deleteBlob(x.getBlobKey(), ignoredCallback);
 					delete(true);
-					event.stopPropagation();
 					// TODO investigate alert box repeat wierdness
 				}
 			}
@@ -137,6 +137,8 @@ public class FileIcon extends Composite  implements HasMouseMoveHandlers, HasMou
 			
 			@Override
 			public void onClick(ClickEvent event) {
+				event.stopPropagation();
+				System.out.println("clicked");
 				INSTANCE.showDetail();
 			}
 		}, ClickEvent.getType());
@@ -146,6 +148,7 @@ public class FileIcon extends Composite  implements HasMouseMoveHandlers, HasMou
 			
 			@Override
 			public void onClick(ClickEvent event) {
+				event.stopPropagation();
 				if (Window.confirm("Download?")) {
 					String url = ("/serve?blob-key=" + x.getBlobKey());
 					Anchor a = new Anchor(url);
@@ -153,7 +156,6 @@ public class FileIcon extends Composite  implements HasMouseMoveHandlers, HasMou
 					RootPanel.get().add(a);
 					Native.click(a.getElement());
 					a.removeFromParent();
-					event.stopPropagation();
 				}
 			}
 		}, ClickEvent.getType());
@@ -168,7 +170,7 @@ public class FileIcon extends Composite  implements HasMouseMoveHandlers, HasMou
 	}
 
 	public static FileIcon createDummyFileIcon() {
-		BlobInfoJS x = JsonUtils.safeEval("{\"blobKey\":\"cVyMM3e_UpW8ss2GwM8iVw\",\"content_type\":\"text/plain\",\"creation\":\"Sun Jun 09 07:46:40 UTC 2013\",\"filename\":\"example.txt\",\"md5_hash\":\"d41d8cd98f00b204e9800998ecf8427e\",\"size\":\"0\"}");
+		BlobInfoJS x = JsonUtils.safeEval("{\"blobKey\":{\"blobKey\":\"AAAAAAAAAAAAAAAAAAAAAA\"},\"contentType\":\"text\",\"creation\":\"Jun 22, 2013 1:35:56 AM\",\"filename\":\"example.txt\",\"size\":0,\"md5Hash\":\"70582b12bb0cd5876abf5761896b1577\"}");
 		return new FileIcon(x);
 	}
 	

@@ -10,4 +10,5 @@ public interface ClientServiceAsync {
 	public void sendMoveEvent(String payload, AsyncCallback<Boolean> callback);
 	public void getInitBundle(String username, String secretKey,
 			AsyncCallback<InitBundle> callback);
+	void reconnect(AsyncCallback<String> callback);
 }
